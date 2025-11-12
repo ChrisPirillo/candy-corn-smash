@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- 
+      START: SEO & Performance Optimization
+      Optimized by a senior performance engineer.
+    -->
+
+    <!-- 1. Optimized Title -->
+    <title>Candy Corn Smash</title>
+
+    <!-- 2. Core Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smash the candy corn in this fast-paced, Halloween-themed whac-a-mole style arcade game! Test your reflexes and get the high score.">
+    <meta name="keywords" content="candy corn, smash, arcade, game, html5 game, whac-a-mole, halloween, fun, reflexes, high score">
+    <meta name="author" content="Chris Pirillo">
+    <link rel="canonical" href="https://pirillo.com/arcade/candy-corn-smash.html">
+
+    <!-- 3. Open Graph (OG) Tags for Social Sharing -->
+    <meta property="og:title" content="Candy Corn Smash">
+    <meta property="og:description" content="A fast-paced, Halloween-themed whac-a-mole style arcade game.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pirillo.com/arcade/candy-corn-smash.html">
+    <meta property="og:image" content="https://pirillo.com/arcade/images/candy-corn-smash.png">
+    <meta property="og:image:alt" content="A screenshot of the Candy Corn Smash arcade game.">
+    <meta property="og:site_name" content="Pirillo's Arcade">
+
+    <!-- 4. Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ChrisPirillo">
+    <meta name="twitter:creator" content="@ChrisPirillo">
+    <meta name="twitter:title" content="Candy Corn Smash">
+    <meta name="twitter:description" content="Smash the candy corn in this fast-paced, Halloween-themed whac-a-mole style arcade game!">
+    <meta name="twitter:image" content="https://pirillo.com/arcade/images/candy-corn-smash.png">
+    <meta name="twitter:image:alt" content="A screenshot of the Candy Corn Smash arcade game.">
+
+    <!-- 5. Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+
+    <!-- 6. Google Analytics (as requested) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CQ4D3VQ3L"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1CQ4D3VQ3L');
+    </script>
+    
+    <!-- 7. Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Candy Corn Smash",
+      "author": {
+        "@type": "Person",
+        "name": "Chris Pirillo"
+      },
+      "url": "https://pirillo.com/arcade/candy-corn-smash.html",
+      "image": "https://pirillo.com/arcade/images/candy-corn-smash.png",
+      "description": "A fast-paced, Halloween-themed whac-a-mole style arcade game. Test your reflexes and get the high score.",
+      "applicationCategory": "Game",
+      "operatingSystem": "Web-based",
+      "playMode": "singlePlayer",
+      "inLanguage": "en"
+    }
+    </script>
+
+    <!-- 
+      END: SEO & Performance Optimization
+    -->
+
+    <!-- --- Original File Content (Unaltered) --- -->
+
+    <!-- 1. Load Tailwind CSS (Unaltered) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Optimized Google Font Load -->
+    <!-- Preloading the stylesheet to make it non-render-blocking, improving FCP/LCP -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Noscript fallback for browsers that don't execute JS -->
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    </noscript>
+
+    <!-- 3. Load Tone.js for Sound Effects (Unaltered as requested) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+
+    <!-- 4. Custom Styles for the game (Unaltered) -->
+    <style>
+        /* Apply the font and a custom mallet cursor */
+        body {
+            font-family: 'Luckiest Guy', cursive;
+            /* Custom SVG cursor for the toy mallet */
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='13' y='18' width='6' height='12' fill='%23A16207' rx='1'/%3E%3Crect x='8' y='8' width='16' height='10' fill='%23EF4444' rx='3'/%3E%3Crect x='8' y='8' width='16' height='10' fill='none' stroke='%239B2C2C' stroke-width='1.5' rx='3'/%3E%3C/g%3E%3C/svg%3E") 16 16, auto;
+            /* Prevent overscroll bounce */
+            overscroll-behavior: none;
+        }
+
+        /* Custom text shadow for the title */
+        h1 {
+            text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        /* The holes in the grid */
+        .hole {
+            background: #2D3748; /* bg-gray-800 */
+            border-radius: 50%;
+            overflow: hidden; /* Crucial for hiding enemies below the surface */
+            position: relative;
+            box-shadow: inset 5px 5px 10px rgba(0,0,0,0.5);
+            /* NEW: Fill the grid cell and stay square */
+            width: 100%;
+            aspect-ratio: 1 / 1;
+        }
+        /* REMOVED: Responsive media queries for .hole */
+
+        /* NEW: Style for the grid to auto-fit holes */
+        #game-grid {
+            /* UPDATED: Removed static grid/sizing. JS will control this. */
+            /* This is key to prevent partial/uneven holes */
+            overflow: hidden; 
+            /* Added h-full back via class, but ensuring it's here */
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Wrapper for the enemies to handle animation */
+        .enemy-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy animation */
+            transform: translate(-50%, 100%); /* Start hidden at the bottom */
+            pointer-events: none; /* Pass clicks through wrapper if enemy not up */
+        }
+
+        /* The 'up' state for an enemy */
+        .enemy-wrapper.up {
+            transform: translate(-50%, 10%); /* Pop up */
+            pointer-events: auto; /* Allow clicks when up */
+        }
+
+        /* Enemy SVGs */
+        .enemy-svg {
+            width: 100%;
+            height: 100%;
+            /* Keep mallet cursor for enemies */
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='13' y='18' width='6' height='12' fill='%23A16207' rx='1'/%3E%3Crect x='8' y='8' width='16' height='10' fill='%23EF4444' rx='3'/%3E%3Crect x='8' y='8' width='16' height='10' fill='none' stroke='%239B2C2C' stroke-width='1.5' rx='3'/%3E%3C/g%3E%3C/svg%3E") 16 16, auto;
+            transition: transform 0.1s ease, opacity 0.1s ease;
+            transform-origin: bottom center; /* For splat effect */
+        }
+
+        /* Splat animation when clicked */
+        .enemy-svg.splat {
+            transform: scale(1.2) translateY(20px); /* Slightly larger and moves down */
+            opacity: 0;
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+        }
+
+        #message-box {
+            animation: fadePop 0.6s ease-out forwards;
+        }
+
+        @keyframes fadePop {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            50% { transform: translate(-50%, -60%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -70%) scale(0.9); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col h-screen p-4 sm:p-6">
+
+    <!-- 
+      START: Semantic HTML Structure
+      Wrapped original layout divs in semantic tags for SEO without altering layout.
+    -->
+
+    <!-- Main Game Container -->
+    <main class="bg-gray-800 rounded-2xl shadow-xl text-center w-full h-full border-4 border-gray-700 relative flex flex-col overflow-hidden">
+        
+        <!-- Header Section (Title & Score) -->
+        <header class="flex-shrink-0 pt-4 sm:pt-6 px-4">
+            <!-- Title -->
+            <h1 class="text-5xl sm:text-6xl text-yellow-400 mb-4 tracking-wider">
+                Candy Corn Smasher
+            </h1>
+            
+            <!-- Scoreboard -->
+            <section aria-label="Game Stats" class="flex justify-around text-2xl sm:text-3xl mb-4 bg-gray-900 p-3 sm:p-4 rounded-lg shadow-inner max-w-lg mx-auto">
+                <div>Score: <span id="score" class="text-green-400">0</span></div>
+                <div>Time: <span id="time-left" class="text-red-400">30</span></div>
+            </section>
+        </header>
+
+        <!-- Game Grid (Expands to fill space) -->
+        <!-- UPDATED: Changed back to simple p-4 -->
+        <section id="game-area" aria-label="Game Play Area" class="flex-grow flex items-center justify-center overflow-auto p-4">
+            <div id="game-grid" class="grid w-full h-full gap-2">
+                <!-- Holes will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Start Button (Stays at bottom) -->
+        <!-- UPDATED: Made start screen more descriptive and fun -->
+        <div id="start-screen" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center p-4 rounded-xl z-10 text-center">
+            <!-- NEW: Large non-interactive candy corn SVG -->
+            <svg class="w-24 h-24 mb-4" viewBox="0 0 100 100" style="filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.3));">
+                <defs>
+                    <path id="start-screen-shape" d="M50 5 C40 5, 20 65, 20 85 Q 20 90, 25 90 H 75 Q 80 90, 80 85 C 80 65, 60 5, 50 5 Z"></path>
+                </defs>
+                <clipPath id="start-screen-clip">
+                    <use href="#start-screen-shape"></use>
+                </clipPath>
+                <use href="#start-screen-shape" fill="#FCD34D"></use>
+                <rect x="0" y="0" width="100" height="60" fill="#F97316" clip-path="url(#start-screen-clip)"></rect>
+                <rect x="0" y="0" width="100" height="35" fill="#FFFFFF" clip-path="url(#start-screen-clip)"></rect>
+            </svg>
+            <!-- NEW: Title -->
+            <h2 class="text-6xl text-yellow-400 mb-4 tracking-wider" style="text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);">Get Ready!</h2>
+            <!-- NEW: Instructions -->
+            <p class="text-2xl text-white mb-8 max-w-md">Smash the candy corn as fast as you can! Missing costs you points. Click "Start" when you're ready to begin!</p>
+            <button id="start-button" class="w-full max-w-lg mx-auto bg-gradient-to-b from-yellow-400 to-orange-500 text-gray-900 font-bold py-4 px-6 rounded-lg text-3xl shadow-lg hover:from-yellow-300 hover:to-orange-400 transition-all transform hover:scale-105">
+                Start Game!
+            </button>
+        </div>
+
+        <!-- Game Over Screen (Hidden by default) -->
+        <div id="game-over-screen" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden p-4 rounded-xl z-10" role="alertdialog" aria-labelledby="game-over-title">
+            <h2 id="game-over-title" class="text-7xl text-red-500 mb-4">Game Over!</h2>
+            <p class="text-4xl mb-8">Final Score: <span id="final-score" class="text-green-400">0</span></p>
+            <button id="restart-button" class="bg-gradient-to-b from-yellow-400 to-orange-500 text-gray-900 font-bold py-4 px-8 rounded-lg text-3xl shadow-lg hover:from-yellow-300 hover:to-orange-400 transition-all transform hover:scale-105">
+                Play Again
+            </button>
+        </div>
+
+        <!-- Floating Message Box (for +1, -1) -->
+        <div id="message-box" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold hidden pointer-events-none z-20" role="status" aria-live="polite">
+        </div>
+
+    </main>
+    <!-- 
+      END: Semantic HTML Structure
+    -->
+
+
+    <!-- 5. Game Logic (Unaltered as requested) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Elements ---
+            const scoreEl = document.getElementById('score');
+            const timeEl = document.getElementById('time-left');
+            const gridEl = document.getElementById('game-grid');
+            const startBtn = document.getElementById('start-button');
+            const startScreen = document.getElementById('start-screen'); // NEW
+            const gameOverScreen = document.getElementById('game-over-screen');
+            const finalScoreEl = document.getElementById('final-score');
+            const restartBtn = document.getElementById('restart-button');
+            const messageBox = document.getElementById('message-box');
+
+            // --- Audio ---
+            // Create a "mushy" synth sound
+            const mushySound = new Tone.MembraneSynth({
+                pitchDecay: 0.01,
+                octaves: 2,
+                envelope: {
+                    attack: 0.01,
+                    decay: 0.2,
+                    sustain: 0
+                }
+            }).toDestination();
+
+
+            // --- SVG Definitions ---
+            // A tasty, +1 point candy corn
+            const candyCornSVG = `
+                <svg class="enemy-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style="filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.3));">
+                    <defs>
+                        <!-- Path moved up 5 units (95->90, 10->5) -->
+                        <path id="candy-corn-shape" d="M50 5 C40 5, 20 65, 20 85 Q 20 90, 25 90 H 75 Q 80 90, 80 85 C 80 65, 60 5, 50 5 Z" />
+                    </defs>
+                    <clipPath id="candy-corn-clip">
+                        <use href="#candy-corn-shape" />
+                    </clipPath>
+                    <!-- Background (Yellow) -->
+                    <use href="#candy-corn-shape" fill="#FCD34D" />
+                    <!-- Orange Layer (y=60 is 55 units from top 5) -->
+                    <rect x="0" y="0" width="100" height="60" fill="#F97316" clip-path="url(#candy-corn-clip)" />
+                    <!-- White Layer (y=35 is 30 units from top 5) -->
+                    <rect x="0" y="0" width="100" height="35" fill="#FFFFFF" clip-path="url(#candy-corn-clip)" />
+                </svg>
+            `;
+            
+            // --- REMOVED GUMMY BEAR SVG ---
+
+            // --- Game State ---
+            let score = 0;
+            let timeLeft = 30;
+            let isGameRunning = false;
+            let gameInterval = null;
+            let timerInterval = null;
+            let demoInterval = null; // NEW: For attract mode
+            let holes = []; // Will store references to hole elements
+            let lastHoleIndex = -1; // To avoid popping the same hole twice
+            // NEW: Add a resize timer to avoid spamming initGame
+            let resizeTimer;
+
+            // --- Functions ---
+
+            /**
+             * Initializes the game grid, creating holes and enemies dynamically
+             */
+            function initGame() {
+                // NEW: Stop any game in progress or demo
+                if (isGameRunning) {
+                    endGame(false); // Pass false to prevent showing game over screen
+                }
+                if (demoInterval) clearInterval(demoInterval); // NEW
+
+                gridEl.innerHTML = ''; // Clear existing holes if any
+                holes = []; // Clear array
+                
+                // --- NEW: Dynamic Grid Calculation ---
+                // Get root font size to calculate rems in pixels
+                const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+                const holeMinSize = 7 * rootFontSize; // 7rem (a bit larger for cleaner look)
+                const gapSize = 0.5 * rootFontSize; // 0.5rem (gap-2)
+                const holeSizeWithGap = holeMinSize + gapSize;
+                
+                // Measure the available space
+                const gridWidth = gridEl.clientWidth;
+                const gridHeight = gridEl.clientHeight;
+
+                // Calculate columns and rows, ensuring at least 2x2
+                let numCols = Math.max(2, Math.floor(gridWidth / holeSizeWithGap));
+                let numRows = Math.max(2, Math.floor(gridHeight / holeSizeWithGap));
+
+                // UPDATED: Cap columns and rows to reasonable maxes, instead of total holes
+                if (numCols > 12) numCols = 12;
+                if (numRows > 8) numRows = 8;
+                
+                let totalHoles = numCols * numRows; // This will now always match the grid
+
+                // REMOVED: The buggy cap on totalHoles
+                // if (totalHoles > 36) { totalHoles = 36; }
+                
+                // Set the grid layout dynamically
+                gridEl.style.gridTemplateColumns = `repeat(${numCols}, 1fr)`;
+                gridEl.style.gridTemplateRows = `repeat(${numRows}, 1fr)`;
+                // --- END: Dynamic Grid Calculation ---
+
+                for (let i = 0; i < totalHoles; i++) {
+                    const hole = document.createElement('div');
+                    // Responsive sizing is now handled in the <style> block
+                    hole.className = 'hole flex items-end justify-center'; 
+
+                    // Add click listener to the hole itself for "miss" penalty
+                    hole.addEventListener('mousedown', () => onHoleClick(i));
+                    
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'enemy-wrapper';
+                    
+                    // --- SIMPLIFIED: Only add candy corn ---
+                    const candyCornClipId = `cc-clip-${i}`;
+                    const candyCornShapeId = `cc-shape-${i}`;
+                    const uniqueCandyCornSVG = candyCornSVG
+                        .replace(/id="candy-corn-clip"/g, `id="${candyCornClipId}"`)
+                        .replace(/href="#candy-corn-shape"/g, `href="#${candyCornShapeId}"`)
+                        .replace(/id="candy-corn-shape"/g, `id="${candyCornShapeId}"`)
+                        .replace(/url\(#candy-corn-clip\)/g, `url(#${candyCornClipId})`);
+
+                    wrapper.innerHTML = `<div id="candy-corn-${i}" class="enemy-container">${uniqueCandyCornSVG}</div>`;
+                    
+                    // Add click listeners to the SVGs themselves
+                    const candyCornEl = wrapper.querySelector(`#candy-corn-${i} .enemy-svg`);
+                    
+                    // --- SIMPLIFIED: Only one click listener ---
+                    candyCornEl.addEventListener('mousedown', (e) => onEnemyClick(e, candyCornEl));
+
+                    hole.appendChild(wrapper);
+                    gridEl.appendChild(hole);
+                    
+                    // --- SIMPLIFIED: Store references ---
+                    holes.push({
+                        holeEl: hole,
+                        wrapperEl: wrapper,
+                        candyCornContainer: wrapper.querySelector(`#candy-corn-${i}`),
+                        candyCornEl: candyCornEl,
+                        isUp: false,
+                        index: i // Store index for miss logic
+                    });
+                }
+
+                // NEW: Start the demo/attract mode loop
+                if (!isGameRunning) {
+                    demoInterval = setInterval(popRandomDemoEnemy, 1000); // 1 pop per second
+                }
+            }
+
+            /**
+             * Starts the main game loop
+             */
+            function startGame() {
+                if (demoInterval) clearInterval(demoInterval); // NEW: Stop demo mode
+
+                score = 0;
+                timeLeft = 30;
+                isGameRunning = true;
+                scoreEl.textContent = score;
+                timeEl.textContent = timeLeft;
+
+                startScreen.classList.add('hidden'); // UPDATED
+                gameOverScreen.classList.add('hidden');
+
+
+                // Ensure all enemies are hidden at start
+                holes.forEach(hole => hideEnemy(hole));
+
+                // Start the game loop and timer
+                timerInterval = setInterval(updateTimer, 1000);
+                gameInterval = setInterval(popRandomEnemy, 700); // Enemy pops every 700ms, slightly faster
+            }
+
+            /**
+             * Ends the game and shows the final score
+             * @param {boolean} [showGameOverScreen=true] - Whether to show the game over screen
+             */
+            function endGame(showGameOverScreen = true) {
+                isGameRunning = false;
+                clearInterval(gameInterval);
+                clearInterval(timerInterval);
+
+                if (showGameOverScreen) {
+                    gameOverScreen.classList.remove('hidden');
+                    finalScoreEl.textContent = score;
+                    startScreen.classList.add('hidden'); // Just in case
+                }
+
+                // Hide any remaining enemies
+                holes.forEach(hole => hideEnemy(hole));
+            }
+
+            /**
+             * Counts down the timer
+             */
+            function updateTimer() {
+                timeLeft--;
+                timeEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }
+
+            /**
+             * Selects a random hole and enemy to "pop up"
+             */
+            function popRandomEnemy() {
+                if (!isGameRunning) return;
+
+                // Find a hole that isn't already up
+                let holeIndex;
+                const availableHoles = holes.filter(h => !h.isUp);
+                if (availableHoles.length === 0) return; // All holes are up, wait for them to hide
+
+                // --- FIX: Try to pick a *different* hole than the last one ---
+                let randomAvailableHole;
+                if (availableHoles.length > 1 && lastHoleIndex !== -1) {
+                    const otherHoles = availableHoles.filter(h => h.index !== lastHoleIndex);
+                    randomAvailableHole = otherHoles.length > 0 
+                        ? otherHoles[Math.floor(Math.random() * otherHoles.length)]
+                        : availableHoles[Math.floor(Math.random() * availableHoles.length)];
+                } else {
+                    randomAvailableHole = availableHoles[Math.floor(Math.random() * availableHoles.length)];
+                }
+                
+                holeIndex = randomAvailableHole.index;
+                lastHoleIndex = holeIndex; // Remember this hole
+                // --- END FIX ---
+                
+                // ADDED: Check if hole exists (it might not if grid resized)
+                if (!holes[holeIndex]) {
+                    lastHoleIndex = -1; // Reset last hole
+                    return; // Skip this pop
+                }
+                const hole = holes[holeIndex];
+
+                hole.isUp = true;
+                
+                // --- SIMPLIFIED: Always show candy corn ---
+                hole.candyCornContainer.style.display = 'block';
+
+                // Reset any 'splat' animations
+                hole.candyCornEl.classList.remove('splat');
+
+                // Pop up!
+                hole.wrapperEl.classList.add('up');
+
+                // Set timeout to hide the enemy
+                const popDuration = Math.random() * 800 + 600; // Stay up for 0.6s to 1.4s
+                setTimeout(() => {
+                    if (hole.isUp) { // Only hide if it hasn't been clicked
+                        hideEnemy(hole);
+                    }
+                }, popDuration);
+            }
+
+            /**
+             * NEW: Selects a random hole to pop up for the demo screen
+             */
+            function popRandomDemoEnemy() {
+                if (isGameRunning) return; // Should be stopped, but as a safeguard
+
+                const availableHoles = holes.filter(h => !h.isUp);
+                if (availableHoles.length === 0) return;
+
+                // Use lastHoleIndex logic to look more natural
+                let randomAvailableHole;
+                if (availableHoles.length > 1 && lastHoleIndex !== -1) {
+                    const otherHoles = availableHoles.filter(h => h.index !== lastHoleIndex);
+                    randomAvailableHole = otherHoles.length > 0 
+                        ? otherHoles[Math.floor(Math.random() * otherHoles.length)]
+                        : availableHoles[Math.floor(Math.random() * availableHoles.length)];
+                } else {
+                    randomAvailableHole = availableHoles[Math.floor(Math.random() * availableHoles.length)];
+                }
+                
+                lastHoleIndex = randomAvailableHole.index; // Remember this hole
+                
+                const hole = holes[randomAvailableHole.index];
+
+                if (!hole) return; // Safeguard
+
+                hole.isUp = true;
+                
+                hole.candyCornContainer.style.display = 'block';
+                hole.candyCornEl.classList.remove('splat');
+                hole.wrapperEl.classList.add('up');
+
+                const popDuration = Math.random() * 600 + 400; // Shorter duration for demo
+                setTimeout(() => {
+                    if (hole.isUp && !isGameRunning) { // Only hide if still in demo mode
+                        hideEnemy(hole);
+                    }
+                }, popDuration);
+            }
+
+            /**
+             * Hides an enemy in a specific hole
+             */
+            function hideEnemy(hole) {
+                if (!hole) return;
+                hole.isUp = false;
+                hole.wrapperEl.classList.remove('up');
+                // Ensure the enemies are visually gone after animation
+                setTimeout(() => {
+                    if (!hole.isUp) { // Check again in case it popped back up
+                        hole.candyCornContainer.style.display = 'none';
+                    }
+                }, 200); // Match CSS transition duration
+            }
+
+            /**
+             * Handles the click event on an enemy
+             * @param {Event} e - The click event
+             * @param {HTMLElement} el - The SVG element that was clicked
+             */
+            function onEnemyClick(e, el) {
+                e.stopPropagation(); // Prevent hole click event from firing
+
+                if (!isGameRunning || !el.parentElement.parentElement.classList.contains('up')) return;
+                
+                // --- SIMPLIFIED: Find logic ---
+                const hole = holes.find(h => h.candyCornEl === el);
+                
+                if (!hole || !hole.isUp) return;
+                
+                // --- Play Sound ---
+                mushySound.triggerAttackRelease("C2", "8n");
+
+                // Add splat animation
+                el.classList.add('splat');
+                
+                // Hide immediately
+                hideEnemy(hole);
+
+                // --- SIMPLIFIED: Always add score ---
+                score++;
+                showMessage("+1", "text-green-400");
+                scoreEl.textContent = score;
+            }
+
+            /**
+             * Handles click on an empty hole (miss)
+             * @param {number} holeIndex - The index of the hole clicked
+             */
+            function onHoleClick(holeIndex) {
+                if (!isGameRunning) return;
+
+                const hole = holes[holeIndex];
+                if (hole && !hole.isUp) { // Only penalize if nothing was there
+                    score--;
+                    scoreEl.textContent = score;
+                    showMessage("-1", "text-red-400");
+                }
+            }
+
+
+            /**
+             * Shows a floating message (+1, -1, or Miss!)
+             * @param {string} text - The text to display
+             * @param {string} colorClass - The Tailwind color class
+             */
+            function showMessage(text, colorClass) {
+                messageBox.textContent = text;
+                messageBox.className = 'absolute top-1/2 left-1/2 text-5xl font-bold pointer-events-none z-20'; // Reset classes
+                messageBox.classList.add(colorClass);
+                
+                // Trigger animation by removing/adding class
+                messageBox.classList.remove('hidden');
+                // Force reflow for animation to restart
+                void messageBox.offsetWidth; 
+                messageBox.classList.add('hidden'); // This gets immediately overridden by the animation, effectively restarting it
+                
+                // Ensure it becomes visible for the animation
+                messageBox.style.animation = 'none';
+                void messageBox.offsetWidth; // Trigger reflow
+                messageBox.style.animation = null; // Re-enable animation
+            }
+            
+            // --- Event Listeners ---
+            startBtn.addEventListener('click', () => {
+                // --- Start Audio Context on user interaction ---
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                startGame();
+            });
+            restartBtn.addEventListener('click', () => {
+                // Audio context should already be running
+                startGame();
+            });
+
+            // NEW: Re-initialize grid on resize for responsiveness
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // Only re-init if a game isn't running OR just to show start screen
+                    if (!isGameRunning) {
+                        initGame();
+                    }
+                }, 250); // Debounce to avoid excessive calls
+            });
+
+            // --- Remove Screen Shake Animation ---
+            // (We don't need it since there's no bad item)
+
+            // --- Initialize ---
+            initGame();
+        });
+    </script>
+</body>
+</html>
